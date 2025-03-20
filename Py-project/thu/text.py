@@ -6,7 +6,7 @@ import torch.distributed as dist
 import torch.multiprocessing as mp
 from torch.nn.parallel import DistributedDataParallel as DDP
 
-# 设置图像文件夹路径
+
 image_folder = "/home/future/Py-project/thu/photo/"
 
 # 定义文本描述
@@ -19,11 +19,10 @@ def train_process(rank, world_size):
 
     dist.init_process_group(backend='nccl', rank=rank, world_size=world_size)
 
-    # 设置当前进程使用的GPU设备
     torch.cuda.set_device(rank)
     device = torch.device(f'cuda:{rank}')  # 定义设备为当前进程的GPU
 
-    # 加载 CLIP 模型和预处理函数
+
     model, preprocess = clip.load("ViT-B/32", device=device)
 
     # 包装模型为DistributedDataParallel，实现多GPU训练
@@ -70,10 +69,9 @@ def train_process(rank, world_size):
     # 清理分布式环境
     dist.destroy_process_group()
 
-# 主函数
 def main():
-    world_size = torch.cuda.device_count()  # 获取可用的GPU数量
-    # 使用多进程启动训练过程
+    world_size = torch.cuda.device_count()  
+
     mp.spawn(train_process, args=(world_size,), nprocs=world_size, join=True)
 
 if __name__ == "__main__":
