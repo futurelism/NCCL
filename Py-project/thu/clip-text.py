@@ -9,7 +9,6 @@ image_folder = "/home/future/Py-project/thu/photo/"
 # 获取图像文件列表
 image_files = [f for f in os.listdir(image_folder) if f.endswith('.jpg')]
 
-# 加载 CLIP 模型和预处理函数
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
@@ -22,7 +21,7 @@ for image_file in image_files:
     # 构造图像路径
     image_path = os.path.join(image_folder, image_file)
 
-    # 加载并预处理图像
+
     try:
         image = preprocess(Image.open(image_path)).unsqueeze(0).to(device)
     except Exception as e:
@@ -42,7 +41,7 @@ for image_file in image_files:
     logits_per_image, logits_per_text = model(image, text)
     probs = logits_per_image.softmax(dim=-1).cpu().detach().numpy()
 
-    # 打印结果
+
     print(f"Image: {image_file}")
     print("Label probs:", probs)
     print("-" * 50)
