@@ -14,7 +14,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
 # 定义文本描述
-text_descriptions = ["这是一只老虎", "这是一只熊猫", "这是一只黄猫"]  # 替换为你的文本描述
+text_descriptions = ["这是一只老虎", "这是一只熊猫", "这是一只黄猫"]  
 text = clip.tokenize(text_descriptions).to(device)
 
 # 对每个图像进行处理
