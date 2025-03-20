@@ -1,0 +1,1 @@
+clip-text.py这个是检测ubuntu上运行clip的情况，而text.py是nccl与clip的分布式代码，photo里有三张图片
