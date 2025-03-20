@@ -10,8 +10,7 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 image_folder = "/home/future/Py-project/thu/photo/"
 
 # 定义文本描述
-text_descriptions = ["这是一只大老虎", "这是一只大熊猫", "这是一只小黄猫"]  # 替换为你的文本描述
-
+text_descriptions = ["这是一只大老虎", "这是一只大熊猫", "这是一只小黄猫"] 
 # 分布式训练函数
 def train_process(rank, world_size):
     # 设置分布式环境的主节点地址和端口
@@ -79,4 +78,4 @@ def main():
     mp.spawn(train_process, args=(world_size,), nprocs=world_size, join=True)
 
 if __name__ == "__main__":
-    main()  # 运行主函数
+    main()  
