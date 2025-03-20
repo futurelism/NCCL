@@ -17,7 +17,6 @@ def train_process(rank, world_size):
     os.environ['MASTER_ADDR'] = 'localhost'
     os.environ['MASTER_PORT'] = '12355'
 
-    # 初始化分布式环境，backend指定为NCCL，rank是当前进程的排名，world_size是总进程数
     dist.init_process_group(backend='nccl', rank=rank, world_size=world_size)
 
     # 设置当前进程使用的GPU设备
@@ -62,7 +61,7 @@ def train_process(rank, world_size):
         logits_per_image, logits_per_text = ddp_model.module(image, text)
         probs = logits_per_image.softmax(dim=-1).cpu().detach().numpy()
 
-        # 打印结果（仅在主进程）
+
         if rank == 0:
             print(f"Image: {image_file}")
             print("Label probs:", probs)
